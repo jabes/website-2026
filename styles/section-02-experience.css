@@ -1,0 +1,38 @@
+div.section-experience-outer {
+    width: 100%;
+    margin: auto;
+    backdrop-filter: grayscale(100%) blur(10px);
+    background: linear-gradient(
+            to right,
+            rgba(255,255,255,0.9) 0%,
+            rgba(255,255,255,1) 15%,
+            rgba(255,255,255,1) 85%,
+            rgba(255,255,255,0.9) 100%
+    );
+}
+
+div.section-experience-inner {
+    width: 800px;
+    margin: 0 auto;
+    padding: 80px 160px;
+    color: #666;
+}
+
+div.work-exp-card h3 {
+    font-size: 1.5rem;
+}
+
+div.work-exp-card h4 {
+    font-size: 1rem;
+    margin: 0;
+}
+
+div.work-exp-card h5 {
+    font-size: 0.85rem;
+    margin: 0 0 15px 0;
+}
+
+div.work-exp-card h6 {
+    font-size: 0.75rem;
+    margin: 0;
+}

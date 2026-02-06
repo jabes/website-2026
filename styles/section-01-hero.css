@@ -1,0 +1,65 @@
+div.section-hero-outer {
+    width: 100%;
+    height: auto;
+    background: linear-gradient(
+            to right,
+            rgba(0,0,0,1) 0%,
+            rgba(0,0,0,0) 50%,
+            rgba(0,0,0,1) 100%
+    );
+}
+
+div.section-hero-inner {
+    width: 800px;
+    margin: 0 auto;
+    padding: 80px 160px;
+    background-color: rgba(0, 0, 0, 0.98);
+    border: 5px solid #00ff00;
+    border-top: none;
+    border-bottom: none;
+    color: #00ff00;
+}
+
+div.section-hero-inner * {
+    color: #00ff00;
+}
+
+div.section-hero-inner img.portrait {
+    display: block;
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+div.section-hero-inner h1 {
+    font-size: 46px;
+    font-weight: bold;
+    margin: 0;
+}
+
+div.section-hero-inner h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px 0;
+    line-height: 1.35;
+}
+
+div.section-hero-inner ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+div.section-hero-inner ul li {
+    margin: 0;
+    line-height: 1.5;
+}
+
+div.section-hero-inner a {
+    text-decoration: none;
+}
+
+div.section-hero-inner a:hover {
+    border-bottom: 2px solid #00ff00;
+}
