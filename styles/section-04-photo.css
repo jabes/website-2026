@@ -9,7 +9,7 @@ div.section-photo-outer {
 }
 
 div.section-photo-inner {
-    width: calc(1120px + var(--slide-size) * 2);
+    max-width: calc(1120px + var(--slide-size) * 2);
     margin: 0 auto;
     padding: 80px 0;
     position: relative;
