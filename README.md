@@ -21,29 +21,10 @@ This is my personal portfolio site built with vanilla HTML/CSS/JavaScript. It fe
     - AOS (scroll animations)
     - YouTube IFrame API (video player)
 
-## Structure
-```
-/
-├── index.html
-├── styles/
-│   ├── main.css
-│   ├── section-01-hero.css
-│   ├── section-02-experience.css
-│   ├── section-03-projects.css
-│   ├── section-04-photo.css
-│   ├── section-05-video.css
-│   └── section-06-footer.css
-├── scripts/
-│   ├── particles.js
-│   └── video-player.js
-├── assets/
-├── photos/
-└── thumbnails/
-```
-
 ## Local Development
 
 No build process required. Just open `index.html` in your browser or use a simple HTTP server:
+
 ```bash
 # Python
 python -m http.server 8000
@@ -76,6 +57,6 @@ Personal portfolio - all rights reserved.
 - **GitHub**: [@jabes](https://github.com/jabes)
 - **LinkedIn**: [jwbull](https://linkedin.com/in/jwbull)
 
----
+## Screenshot
 
-Made with 🐧 in 🇨🇦
+![](assets/website-screenshot.png)
