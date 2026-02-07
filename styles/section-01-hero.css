@@ -10,7 +10,7 @@ div.section-hero-outer {
 }
 
 div.section-hero-inner {
-    width: 800px;
+    max-width: 1120px;
     margin: 0 auto;
     padding: 80px 160px;
     background-color: rgba(0, 0, 0, 0.98);
@@ -62,4 +62,45 @@ div.section-hero-inner a {
 
 div.section-hero-inner a:hover {
     border-bottom: 2px solid #00ff00;
+}
+
+@media (max-width: 1024px) {
+    div.section-hero-inner {
+        width: 100%;
+        margin: 0;
+        padding: 60px;
+        border: none;
+    }
+}
+
+@media (max-width: 768px) {
+    div.section-hero-inner {
+        padding: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    div.section-hero-inner {
+        padding: 20px;
+    }
+
+    div.section-hero-inner .text-right {
+        text-align: left;
+    }
+
+    div.section-hero-inner img.portrait {
+        margin: 20px auto;
+    }
+
+    div.section-hero-inner ul {
+        margin: 8px 0;
+    }
+
+    div.section-hero-inner .row {
+        gap: 0;
+    }
+
+    div.section-hero-inner hr + .row {
+        margin: 20px 0;
+    }
 }

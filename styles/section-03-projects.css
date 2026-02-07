@@ -9,7 +9,7 @@ div.section-projects-outer {
 }
 
 div.section-projects-inner {
-    width: 800px;
+    max-width: 1120px;
     margin: 0 auto;
     padding: 80px 160px;
     color: #fff;
@@ -50,4 +50,19 @@ div.section-projects-inner {
 
 .git-card a:hover h3 {
     text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    div.section-projects-inner {
+        width: 100%;
+        margin: 0;
+        padding: 40px;
+        border: none;
+    }
+}
+
+@media (max-width: 480px) {
+    div.section-projects-inner {
+        padding: 20px;
+    }
 }

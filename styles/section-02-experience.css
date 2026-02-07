@@ -12,7 +12,7 @@ div.section-experience-outer {
 }
 
 div.section-experience-inner {
-    width: 800px;
+    max-width: 1120px;
     margin: 0 auto;
     padding: 80px 160px;
     color: #666;
@@ -35,4 +35,19 @@ div.work-exp-card h5 {
 div.work-exp-card h6 {
     font-size: 0.75rem;
     margin: 0;
+}
+
+@media (max-width: 768px) {
+    div.section-experience-inner {
+        width: 100%;
+        margin: 0;
+        padding: 40px;
+        border: none;
+    }
+}
+
+@media (max-width: 480px) {
+    div.section-experience-inner {
+        padding: 20px;
+    }
 }
