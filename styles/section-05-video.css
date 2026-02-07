@@ -90,8 +90,6 @@ div.section-video-inner {
 
 .video-popup-content {
     position: absolute;
-    width: 100%;
-    max-width: 1200px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -100,8 +98,6 @@ div.section-video-inner {
 
 button.video-popup-close {
     position: absolute;
-    top: -60px;
-    right: -4px;
     background: transparent;
     color: transparent;
     border: none;
@@ -127,10 +123,9 @@ button.video-popup-close:active svg {
 
 .video-container {
     position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
     background: black;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
 }
 
 .video-container #player {
@@ -139,12 +134,6 @@ button.video-popup-close:active svg {
     left: 0;
     width: 100%;
     height: 100%;
-}
-
-@media (max-width: 1024px) {
-    button.video-popup-close {
-        right: 6px;
-    }
 }
 
 @media (max-width: 768px) {
@@ -159,5 +148,47 @@ button.video-popup-close:active svg {
 @media (max-width: 480px) {
     div.section-video-inner {
         padding: 20px;
+    }
+}
+
+@media (min-aspect-ratio: 16/9) {
+    button.video-popup-close {
+        position: absolute;
+        top: 6px;
+        right: -60px;
+    }
+
+    .video-popup-content {
+        height: 100%;
+        max-height: 675px;
+        width: auto;
+        max-width: 100vw;
+    }
+
+    .video-container {
+        width: auto;
+        height: 100vh;
+        max-height: min(100vh, 675px);
+    }
+}
+
+@media (max-aspect-ratio: 16/9) {
+    button.video-popup-close {
+        position: absolute;
+        top: -60px;
+        right: 6px;
+    }
+
+    .video-popup-content {
+        width: 100%;
+        max-width: 1200px;
+        height: auto;
+        max-height: 100vh;
+    }
+
+    .video-container {
+        width: 100vw;
+        height: auto;
+        max-width: min(100vw, 1200px);
     }
 }
