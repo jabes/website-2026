@@ -1,89 +1,125 @@
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x000000);
-scene.fog = new THREE.Fog(0x000000, 5, 25);
+class ParticleSystem {
+    constructor() {
+        this.particleCount = 25000;
+        this.particleVelocities = [];
 
-const camera = new THREE.PerspectiveCamera(
-    75,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
-);
-
-camera.position.set(0, 0, 5);
-
-const renderer = new THREE.WebGLRenderer({antialias: true});
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
-document.body.appendChild(renderer.domElement);
-
-const particleCount = window.innerWidth * 25;
-const particlesGeometry = new THREE.BufferGeometry();
-const particlePositions = new Float32Array(particleCount * 3);
-const particleVelocities = [];
-
-for (let i = 0; i < particleCount; i++) {
-    particlePositions[i * 3] = (Math.random() - 0.5) * 30;
-    particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 30;
-    particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 30;
-    particleVelocities.push({
-        x: (Math.random() - 0.5) * 0.02,
-        y: (Math.random() - 0.5) * 0.02,
-        z: (Math.random() - 0.5) * 0.02,
-    });
-}
-
-particlesGeometry.setAttribute(
-    'position',
-    new THREE.BufferAttribute(particlePositions, 3)
-);
-
-const particlesMaterial = new THREE.PointsMaterial({
-    color: 0x00ff00,
-    size: 0.08,
-    transparent: true,
-    opacity: 0.8,
-    blending: THREE.AdditiveBlending,
-});
-
-const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-scene.add(particles);
-
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
-
-function animate() {
-    requestAnimationFrame(animate);
-
-    const particlePositions = particlesGeometry.attributes.position.array;
-    for (let i = 0; i < particleCount; i++) {
-        particlePositions[i * 3] += particleVelocities[i].x;
-        particlePositions[i * 3 + 1] += particleVelocities[i].y;
-        particlePositions[i * 3 + 2] += particleVelocities[i].z;
-
-        if (Math.abs(particlePositions[i * 3]) > 15) {
-            particlePositions[i * 3] *= -1;
-        }
-
-        if (Math.abs(particlePositions[i * 3 + 1]) > 15) {
-            particlePositions[i * 3 + 1] *= -1;
-        }
-
-        if (Math.abs(particlePositions[i * 3 + 2]) > 15) {
-            particlePositions[i * 3 + 2] *= -1;
-        }
+        this.initScene();
+        this.initCamera();
+        this.initRenderer();
+        this.createParticles();
+        this.addEventListeners();
+        this.animate();
     }
 
-    particlesGeometry.attributes.position.needsUpdate = true;
+    initScene() {
+        this.scene = new THREE.Scene();
+        this.scene.background = new THREE.Color(0x000000);
+        this.scene.fog = new THREE.Fog(0x000000, 5, 25);
+    }
 
+    initCamera() {
+        const fov = 75;
+        const aspect = window.innerWidth / window.innerHeight;
+        const near = 0.1;
+        const far = 1000;
+        this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+        this.camera.position.set(0, 0, 5);
+    }
 
-    camera.position.x = 0;
-    camera.position.y = window.scrollY / (document.body.offsetHeight - window.innerHeight) * 5;
-    camera.lookAt(scene.position);
+    initRenderer() {
+        this.renderer = new THREE.WebGLRenderer({antialias: true});
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setPixelRatio(window.devicePixelRatio);
+        document.body.appendChild(this.renderer.domElement);
+    }
 
-    renderer.render(scene, camera);
+    createParticles() {
+        this.particlesGeometry = new THREE.BufferGeometry();
+        const particlePositions = new Float32Array(this.particleCount * 3);
+
+        for (let i = 0; i < this.particleCount; i++) {
+            particlePositions[i * 3] = (Math.random() - 0.5) * 30;
+            particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 30;
+            particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 30;
+
+            this.particleVelocities.push({
+                x: (Math.random() - 0.5) * 0.02,
+                y: (Math.random() - 0.5) * 0.02,
+                z: (Math.random() - 0.5) * 0.02,
+            });
+        }
+
+        this.particlesGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+
+        const particlesMaterial = new THREE.PointsMaterial({
+            color: 0x00ff00,
+            size: 0.08,
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending,
+        });
+
+        this.particles = new THREE.Points(this.particlesGeometry, particlesMaterial);
+        this.scene.add(this.particles);
+    }
+
+    addEventListeners() {
+        window.addEventListener('resize', () => this.onResize());
+    }
+
+    onResize() {
+        this.camera.aspect = window.innerWidth / window.innerHeight;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    updateParticles() {
+        const positions = this.particlesGeometry.attributes.position.array;
+
+        for (let i = 0; i < this.particleCount; i++) {
+            positions[i * 3] += this.particleVelocities[i].x;
+            positions[i * 3 + 1] += this.particleVelocities[i].y;
+            positions[i * 3 + 2] += this.particleVelocities[i].z;
+
+            if (Math.abs(positions[i * 3]) > 15) {
+                positions[i * 3] *= -1;
+            }
+
+            if (Math.abs(positions[i * 3 + 1]) > 15) {
+                positions[i * 3 + 1] *= -1;
+            }
+
+            if (Math.abs(positions[i * 3 + 2]) > 15) {
+                positions[i * 3 + 2] *= -1;
+            }
+        }
+
+        this.particlesGeometry.attributes.position.needsUpdate = true;
+    }
+
+    updateCamera() {
+        this.camera.position.x = 0;
+        this.camera.position.y = window.scrollY / (document.body.offsetHeight - window.innerHeight) * 5;
+        this.camera.lookAt(this.scene.position);
+    }
+
+    animate() {
+        requestAnimationFrame(() => this.animate());
+
+        this.updateParticles();
+        this.updateCamera();
+        this.renderer.render(this.scene, this.camera);
+    }
+
+    destroy() {
+        window.removeEventListener('resize', this.onResize);
+        this.renderer.domElement.remove();
+        this.particlesGeometry.dispose();
+        this.particles.material.dispose();
+    }
 }
 
-animate();
+// Initialize only on desktop
+if (window.innerWidth > 1024) {
+    new ParticleSystem();
+}
