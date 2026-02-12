@@ -8,16 +8,17 @@
     <meta property="og:description" content="Portfolio and resume of Justin Bull, senior software engineer specializing in backend services and infrastructure.">
     <title>Justin Bull - Software Engineer</title>
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/section-01-hero.css">
-    <link rel="stylesheet" href="styles/section-02-experience.css">
-    <link rel="stylesheet" href="styles/section-03-projects.css">
-    <link rel="stylesheet" href="styles/section-04-photo.css">
-    <link rel="stylesheet" href="styles/section-05-video.css">
-    <link rel="stylesheet" href="styles/section-06-footer.css">
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://unpkg.com/snap-touch@1.0.6/snap-touch.js"></script>
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="stylesheet" media="screen" href="styles/main.css">
+    <link rel="stylesheet" media="screen" href="styles/section-01-hero.css">
+    <link rel="stylesheet" media="screen" href="styles/section-02-experience.css">
+    <link rel="stylesheet" media="screen" href="styles/section-03-projects.css">
+    <link rel="stylesheet" media="screen" href="styles/section-04-photo.css">
+    <link rel="stylesheet" media="screen" href="styles/section-05-video.css">
+    <link rel="stylesheet" media="screen" href="styles/section-06-footer.css">
+    <link rel="stylesheet" media="screen" href="https://unpkg.com/aos@next/dist/aos.css"/>
 </head>
 <body>
 
@@ -28,7 +29,7 @@
 
             <div class="row">
                 <div class="col-4">
-                    <img class="portrait" src="assets/portrait.jpg" alt="Justin Bull"/>
+                    <img loading="eager" fetchpriority="high" class="portrait" src="assets/portrait.jpg" alt="Justin Bull"/>
                 </div>
                 <div class="col-8">
                     <h1>Justin Bull</h1>
@@ -495,14 +496,14 @@
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://unpkg.com/snap-touch@1.0.6/snap-touch.js"></script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
 <script src="scripts/particles.js"></script>
 <script src="scripts/photo-slider.js"></script>
 <script src="scripts/video-player.js"></script>
-<script src="https://www.youtube.com/iframe_api"></script>
-<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<script>
-    AOS.init();
-</script>
+<script> AOS.init(); </script>
 
 </body>
 </html>
