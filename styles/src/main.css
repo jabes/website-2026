@@ -9,6 +9,7 @@ body {
     overflow-y: scroll;
     font-family: 'Courier New', monospace;
     scroll-behavior: smooth;
+    background: black;
 }
 
 canvas {
@@ -80,7 +81,7 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
     z-index: 1;
     overflow: hidden;
-    background: black;
+    background: transparent;
 }
 
 .row {

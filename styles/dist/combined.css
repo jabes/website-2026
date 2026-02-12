@@ -9,6 +9,7 @@ body {
     overflow-y: scroll;
     font-family: 'Courier New', monospace;
     scroll-behavior: smooth;
+    background: black;
 }
 
 canvas {
@@ -80,7 +81,7 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
     z-index: 1;
     overflow: hidden;
-    background: black;
+    background: transparent;
 }
 
 .row {
@@ -184,6 +185,7 @@ h1, h2, h3, h4, h5, h6 {
         font-size: 0.9rem;
     }
 }
+
 div.section-hero-outer {
     width: 100%;
     height: auto;
@@ -290,6 +292,7 @@ div.section-hero-inner a:hover {
         margin: 20px 0;
     }
 }
+
 div.section-experience-outer {
     width: 100%;
     margin: auto;
@@ -342,7 +345,9 @@ div.work-exp-card h6 {
     div.section-experience-inner {
         padding: 20px;
     }
-}div.section-projects-outer {
+}
+
+div.section-projects-outer {
     width: 100%;
     margin: auto;
     background: linear-gradient(
@@ -409,7 +414,9 @@ div.section-projects-inner {
     div.section-projects-inner {
         padding: 20px;
     }
-}:root {
+}
+
+:root {
     --slide-size: 280px;
 }
 
@@ -517,7 +524,9 @@ div.section-photo-inner {
     div.section-photo-inner {
         padding: 20px 0;
     }
-}div.section-video-outer {
+}
+
+div.section-video-outer {
     width: 100%;
     margin: auto;
     backdrop-filter: grayscale(100%);
@@ -711,6 +720,7 @@ button.video-popup-close:active svg {
         max-width: min(100vw, 1200px);
     }
 }
+
 div.section-footer-outer {
     width: 100%;
     height: auto;
