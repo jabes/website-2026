@@ -118,8 +118,3 @@ class ParticleSystem {
         this.particles.material.dispose();
     }
 }
-
-// Initialize only on desktop
-if (window.innerWidth > 1024) {
-    new ParticleSystem();
-}
