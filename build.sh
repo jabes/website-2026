@@ -11,6 +11,16 @@ command -v purgecss >/dev/null 2>&1 || npm install -g purgecss
 command -v terser >/dev/null 2>&1 || npm install -g terser
 
 # --------------------------------------------------------------------------------
+# FETCH LIBS
+# --------------------------------------------------------------------------------
+
+echo "Fetching libraries..."
+curl -sS -o scripts/lib/three-r128.min.js https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js
+curl -sS -o scripts/lib/snap-touch-1.0.6.min.js https://unpkg.com/snap-touch@1.0.6/snap-touch.min.js
+curl -sS -o scripts/lib/aos-2.3.4.min.js https://unpkg.com/aos@2.3.4/dist/aos.js
+curl -sS -o styles/lib/aos-2.3.4.min.css https://unpkg.com/aos@2.3.4/dist/aos.css
+
+# --------------------------------------------------------------------------------
 # HTML
 # --------------------------------------------------------------------------------
 
