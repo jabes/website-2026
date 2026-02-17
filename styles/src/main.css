@@ -90,12 +90,12 @@ main.content-container {
     margin-bottom: 40px;
 }
 
-.heading h1 {
+.heading .section-title {
     font-size: 2.5rem;
     margin: 0;
 }
 
-.heading p {
+.heading .section-subtitle {
     font-size: 1.1rem;
     margin: 10px 0;
 }
@@ -141,11 +141,11 @@ main.content-container {
         grid-column: span 6;
     }
 
-    .heading h1 {
+    .heading .section-title {
         font-size: 2.25rem;
     }
 
-    .heading p {
+    .heading .section-subtitle {
         font-size: 1rem;
     }
 }
@@ -168,11 +168,11 @@ main.content-container {
         margin-bottom: 20px;
     }
 
-    .heading h1 {
+    .heading .section-title {
         font-size: 2rem;
     }
 
-    .heading p {
+    .heading .section-subtitle {
         font-size: 0.9rem;
     }
 }

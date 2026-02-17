@@ -12,12 +12,12 @@ div.section-footer-inner {
 }
 
 div.section-footer-inner p {
-    color: #888;
+    color: #555;
 }
 
 div.section-footer-inner hr {
     border: none;
-    border-bottom: 1px dashed #888;
+    border-bottom: 1px dashed #555;
     margin: 20px 0;
 }
 

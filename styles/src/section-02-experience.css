@@ -18,21 +18,21 @@ div.section-experience-inner {
     color: #666;
 }
 
-div.work-exp-card h3 {
+div.work-exp-card .job-company {
     font-size: 1.5rem;
 }
 
-div.work-exp-card h4 {
+div.work-exp-card .job-title {
     font-size: 1rem;
     margin: 0;
 }
 
-div.work-exp-card h5 {
+div.work-exp-card .job-dates {
     font-size: 0.85rem;
     margin: 0 0 15px 0;
 }
 
-div.work-exp-card h6 {
+div.work-exp-card .job-tech {
     font-size: 0.75rem;
     margin: 0;
 }

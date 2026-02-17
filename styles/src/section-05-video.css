@@ -20,6 +20,11 @@ div.section-video-inner {
     margin-bottom: 40px;
 }
 
+.video-title,
+.video-description {
+    color: #ccc;
+}
+
 .video-thumb {
     position: relative;
     width: 100%;

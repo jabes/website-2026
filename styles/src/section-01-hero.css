@@ -33,13 +33,13 @@ div.section-hero-inner img.portrait {
     margin-bottom: 20px;
 }
 
-div.section-hero-inner h1 {
+div.section-hero-inner .hero-title {
     font-size: 46px;
     font-weight: bold;
     margin: 0;
 }
 
-div.section-hero-inner h3 {
+div.section-hero-inner .hero-subtitle {
     font-size: 18px;
     font-weight: bold;
     margin: 20px 0;

@@ -21,7 +21,7 @@ img, video, canvas, svg {
     max-width: 100%;
 }
 
-h1, h3, h4, h5, h6, p {
+h1, h2, h3, p {
     overflow-wrap: break-word;
 }
 
@@ -29,7 +29,7 @@ p {
     text-wrap: pretty;
 }
 
-h1, h3, h4, h5, h6 {
+h1, h2, h3 {
     text-wrap: balance;
 }
 .col-4 { grid-column: span 4; }
@@ -65,12 +65,12 @@ main.content-container {
     margin-bottom: 40px;
 }
 
-.heading h1 {
+.heading .section-title {
     font-size: 2.5rem;
     margin: 0;
 }
 
-.heading p {
+.heading .section-subtitle {
     font-size: 1.1rem;
     margin: 10px 0;
 }
@@ -109,11 +109,11 @@ main.content-container {
         grid-column: span 6;
     }
 
-    .heading h1 {
+    .heading .section-title {
         font-size: 2.25rem;
     }
 
-    .heading p {
+    .heading .section-subtitle {
         font-size: 1rem;
     }
 }
@@ -136,11 +136,11 @@ main.content-container {
         margin-bottom: 20px;
     }
 
-    .heading h1 {
+    .heading .section-title {
         font-size: 2rem;
     }
 
-    .heading p {
+    .heading .section-subtitle {
         font-size: 0.9rem;
     }
 }
@@ -184,13 +184,13 @@ div.section-hero-inner img.portrait {
     margin-bottom: 20px;
 }
 
-div.section-hero-inner h1 {
+div.section-hero-inner .hero-title {
     font-size: 46px;
     font-weight: bold;
     margin: 0;
 }
 
-div.section-hero-inner h3 {
+div.section-hero-inner .hero-subtitle {
     font-size: 18px;
     font-weight: bold;
     margin: 20px 0;
@@ -289,21 +289,21 @@ div.section-experience-inner {
     color: #666;
 }
 
-div.work-exp-card h3 {
+div.work-exp-card .job-company {
     font-size: 1.5rem;
 }
 
-div.work-exp-card h4 {
+div.work-exp-card .job-title {
     font-size: 1rem;
     margin: 0;
 }
 
-div.work-exp-card h5 {
+div.work-exp-card .job-dates {
     font-size: 0.85rem;
     margin: 0 0 15px 0;
 }
 
-div.work-exp-card h6 {
+div.work-exp-card .job-tech {
     font-size: 0.75rem;
     margin: 0;
 }
@@ -360,10 +360,14 @@ div.section-projects-inner {
     overflow: hidden;
 }
 
-.git-card h3 {
+.git-card .project-title {
     font-size: 1.25rem;
     font-weight: bold;
-    color: #fff;
+}
+
+.git-card .project-description {
+    font-size: 1rem;
+    font-weight: normal;
 }
 
 .git-card a {
@@ -378,7 +382,7 @@ div.section-projects-inner {
     transform: translateY(-4px);
 }
 
-.git-card a:hover h3 {
+.git-card a:hover .project-title {
     text-decoration: underline;
 }
 
@@ -535,6 +539,11 @@ div.section-video-inner {
 
 .video-card {
     margin-bottom: 40px;
+}
+
+.video-title,
+.video-description {
+    color: #ccc;
 }
 
 .video-thumb {
@@ -729,12 +738,12 @@ div.section-footer-inner {
 }
 
 div.section-footer-inner p {
-    color: #888;
+    color: #555;
 }
 
 div.section-footer-inner hr {
     border: none;
-    border-bottom: 1px dashed #888;
+    border-bottom: 1px dashed #555;
     margin: 20px 0;
 }
 
