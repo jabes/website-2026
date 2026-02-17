@@ -351,6 +351,7 @@ div.section-projects-inner {
 .git-card img {
     display: block;
     width: 100%;
+    height: auto;
     margin: 0;
     padding: 0;
     border: none;
@@ -550,6 +551,7 @@ div.section-video-inner {
     outline: none;
     object-fit: cover;
     width: 100%;
+    height: auto;
 }
 
 .video-thumb button.video-trigger {
