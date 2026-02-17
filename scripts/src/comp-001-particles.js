@@ -1,8 +1,8 @@
 class ParticleSystem {
-    constructor() {
+    constructor(canvas) {
         this.particleCount = 25000;
         this.particleVelocities = [];
-
+        this.canvas = canvas;
         this.initScene();
         this.initCamera();
         this.initRenderer();
@@ -27,10 +27,13 @@ class ParticleSystem {
     }
 
     initRenderer() {
-        this.renderer = new THREE.WebGLRenderer({antialias: true});
+        this.renderer = new THREE.WebGLRenderer({
+            canvas: this.canvas,
+            antialias: true,
+        });
+
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.renderer.setPixelRatio(window.devicePixelRatio);
-        document.body.appendChild(this.renderer.domElement);
     }
 
     createParticles() {

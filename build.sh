@@ -1,18 +1,62 @@
 #!/bin/bash
 
+set -e  # Exit on any error
+
 source "/usr/share/nvm/init-nvm.sh"
 
 nvm use 22
-npm install -g html-minifier
-npm install -g csso-cli
-npm install -g terser
+command -v html-minifier >/dev/null 2>&1 || npm install -g html-minifier
+command -v csso-cli >/dev/null 2>&1 || npm install -g csso-cli
+command -v purgecss >/dev/null 2>&1 || npm install -g purgecss
+command -v terser >/dev/null 2>&1 || npm install -g terser
 
+# --------------------------------------------------------------------------------
+# HTML
+# --------------------------------------------------------------------------------
+
+echo "Minifying HTML..."
 html-minifier \
   --collapse-whitespace \
   --remove-comments \
   --remove-redundant-attributes \
   --output index.html \
   index.src.html
+
+# --------------------------------------------------------------------------------
+# SCRIPTS
+# --------------------------------------------------------------------------------
+
+SCRIPTS=(
+  scripts/lib/aos-2.3.4.min.js
+  scripts/lib/snap-touch-1.0.6.min.js
+  scripts/src/comp-001-particles.js
+  scripts/src/comp-002-photo-slider.js
+  scripts/src/comp-003-video-player.js
+  scripts/src/main.js
+)
+
+mkdir -p scripts/dist
+rm -f scripts/dist/combined.js
+rm -f scripts/dist/combined.min.js
+touch scripts/dist/combined.js
+touch scripts/dist/combined.min.js
+
+echo "Combining scripts..."
+for FILE in "${SCRIPTS[@]}"; do
+  echo "/* -------------------------------------------------------------------------------- */" >> scripts/dist/combined.js
+  echo "/* $(printf "%-80s\n" "$FILE") */" >> scripts/dist/combined.js
+  echo "/* -------------------------------------------------------------------------------- */" >> scripts/dist/combined.js
+  echo "" >> scripts/dist/combined.js
+  cat "$FILE" >> scripts/dist/combined.js
+  echo "" >> scripts/dist/combined.js
+done
+
+echo "Minifying scripts..."
+terser scripts/dist/combined.js -o scripts/dist/combined.min.js
+
+# --------------------------------------------------------------------------------
+# STYLES
+# --------------------------------------------------------------------------------
 
 STYLES=(
   styles/src/main.css
@@ -31,6 +75,7 @@ rm -f styles/dist/combined.min.css
 touch styles/dist/combined.css
 touch styles/dist/combined.min.css
 
+echo "Combining styles..."
 for FILE in "${STYLES[@]}"; do
   echo "/* -------------------------------------------------------------------------------- */" >> styles/dist/combined.css
   echo "/* $(printf "%-80s\n" "$FILE") */" >> styles/dist/combined.css
@@ -40,30 +85,10 @@ for FILE in "${STYLES[@]}"; do
   echo "" >> styles/dist/combined.css
 done
 
+echo "Minifying styles..."
+purgecss --css styles/dist/combined.css --content index.html scripts/dist/combined.js --output styles/dist/
 csso styles/dist/combined.css -o styles/dist/combined.min.css
 
-SCRIPTS=(
-  scripts/lib/aos-2.3.4.min.js
-  scripts/lib/snap-touch-1.0.6.min.js
-  scripts/src/comp-001-particles.js
-  scripts/src/comp-002-photo-slider.js
-  scripts/src/comp-003-video-player.js
-  scripts/src/main.js
-)
+# --------------------------------------------------------------------------------
 
-mkdir -p scripts/dist
-rm -f scripts/dist/combined.js
-rm -f scripts/dist/combined.min.js
-touch scripts/dist/combined.js
-touch scripts/dist/combined.min.js
-
-for FILE in "${SCRIPTS[@]}"; do
-  echo "/* -------------------------------------------------------------------------------- */" >> scripts/dist/combined.js
-  echo "/* $(printf "%-80s\n" "$FILE") */" >> scripts/dist/combined.js
-  echo "/* -------------------------------------------------------------------------------- */" >> scripts/dist/combined.js
-  echo "" >> scripts/dist/combined.js
-  cat "$FILE" >> scripts/dist/combined.js
-  echo "" >> scripts/dist/combined.js
-done
-
-terser scripts/dist/combined.js -o scripts/dist/combined.min.js
+echo "✓ Build complete"

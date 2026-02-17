@@ -7,7 +7,8 @@ if (window.innerWidth > 1024) {
         const script = document.createElement('script');
         script.src = window.location.origin + '/scripts/lib/three-r128.min.js';
         script.addEventListener('load', () => {
-            new ParticleSystem();
+            const canvas = document.getElementById('particleCanvas');
+            new ParticleSystem(canvas);
         });
         document.body.appendChild(script);
     });

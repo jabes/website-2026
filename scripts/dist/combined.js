@@ -13,10 +13,10 @@
 /* -------------------------------------------------------------------------------- */
 
 class ParticleSystem {
-    constructor() {
+    constructor(canvas) {
         this.particleCount = 25000;
         this.particleVelocities = [];
-
+        this.canvas = canvas;
         this.initScene();
         this.initCamera();
         this.initRenderer();
@@ -41,10 +41,13 @@ class ParticleSystem {
     }
 
     initRenderer() {
-        this.renderer = new THREE.WebGLRenderer({antialias: true});
+        this.renderer = new THREE.WebGLRenderer({
+            canvas: this.canvas,
+            antialias: true,
+        });
+
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.renderer.setPixelRatio(window.devicePixelRatio);
-        document.body.appendChild(this.renderer.domElement);
     }
 
     createParticles() {
@@ -270,7 +273,8 @@ if (window.innerWidth > 1024) {
         const script = document.createElement('script');
         script.src = window.location.origin + '/scripts/lib/three-r128.min.js';
         script.addEventListener('load', () => {
-            new ParticleSystem();
+            const canvas = document.getElementById('particleCanvas');
+            new ParticleSystem(canvas);
         });
         document.body.appendChild(script);
     });
