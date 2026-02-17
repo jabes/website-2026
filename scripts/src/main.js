@@ -28,3 +28,12 @@ window.addEventListener('load', () => {
         setTimeout(loadSliderImages, 200);
     }
 });
+
+if (!window.YT) {
+    const script = document.createElement('script');
+    script.src = 'https://www.youtube.com/iframe_api';
+    script.addEventListener('load', () => {
+        new VideoPlayer();
+    });
+    document.head.appendChild(script);
+}

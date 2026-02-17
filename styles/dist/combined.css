@@ -41,7 +41,7 @@ h1, h3, h4, h5, h6 {
 .text-left { text-align: left; }
 .text-right { text-align: right; }
 
-.content-container {
+main.content-container {
     width: 100%;
     height: auto;
     position: relative;
@@ -149,7 +149,7 @@ h1, h3, h4, h5, h6 {
 /* styles/src/section-01-hero.css                                                   */
 /* -------------------------------------------------------------------------------- */
 
-div.section-hero-outer {
+section.section-hero-outer {
     width: 100%;
     height: auto;
     background: linear-gradient(
@@ -269,7 +269,7 @@ canvas.particle-canvas {
 /* styles/src/section-02-experience.css                                             */
 /* -------------------------------------------------------------------------------- */
 
-div.section-experience-outer {
+section.section-experience-outer {
     width: 100%;
     margin: auto;
     backdrop-filter: grayscale(100%) blur(10px);
@@ -327,7 +327,7 @@ div.work-exp-card h6 {
 /* styles/src/section-03-projects.css                                               */
 /* -------------------------------------------------------------------------------- */
 
-div.section-projects-outer {
+section.section-projects-outer {
     width: 100%;
     margin: auto;
     background: linear-gradient(
@@ -405,7 +405,7 @@ div.section-projects-inner {
     --slide-size: 280px;
 }
 
-div.section-photo-outer {
+section.section-photo-outer {
     width: 100%;
     margin: auto;
     background: white;
@@ -515,7 +515,7 @@ div.section-photo-inner {
 /* styles/src/section-05-video.css                                                  */
 /* -------------------------------------------------------------------------------- */
 
-div.section-video-outer {
+section.section-video-outer {
     width: 100%;
     margin: auto;
     backdrop-filter: grayscale(100%);
@@ -715,7 +715,7 @@ button.video-popup-close:active svg {
 /* styles/src/section-06-footer.css                                                 */
 /* -------------------------------------------------------------------------------- */
 
-div.section-footer-outer {
+footer.section-footer-outer {
     width: 100%;
     height: auto;
     background: white;

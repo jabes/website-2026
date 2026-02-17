@@ -2,7 +2,7 @@
     --slide-size: 280px;
 }
 
-div.section-photo-outer {
+section.section-photo-outer {
     width: 100%;
     margin: auto;
     background: white;

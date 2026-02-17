@@ -6,26 +6,19 @@ slider.easeTowardsTarget();
 const sliderElement = document.getElementById('slider');
 let isInteracting = false;
 
-sliderElement.addEventListener('mousedown', () => {
+const handleInteractionStart = () => {
     isInteracting = true;
     document.body.style.overflow = 'hidden';
-});
+};
 
-sliderElement.addEventListener('touchstart', () => {
-    isInteracting = true;
-    document.body.style.overflow = 'hidden';
-}, {passive: true});
-
-window.addEventListener('mouseup', () => {
+const handleInteractionEnd = () => {
     if (isInteracting) {
         isInteracting = false;
         document.body.style.overflow = '';
     }
-});
+};
 
-window.addEventListener('touchend', () => {
-    if (isInteracting) {
-        isInteracting = false;
-        document.body.style.overflow = '';
-    }
-}, {passive: true});
+sliderElement.addEventListener('mousedown', handleInteractionStart);
+sliderElement.addEventListener('touchstart', handleInteractionStart, {passive: true});
+window.addEventListener('mouseup', handleInteractionEnd);
+window.addEventListener('touchend', handleInteractionEnd, {passive: true});

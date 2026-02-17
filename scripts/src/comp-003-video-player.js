@@ -1,83 +1,100 @@
-const videoTriggers = document.querySelectorAll('.video-trigger');
-const videoPopup = document.getElementById('videoPopup');
-const closeBtn = document.querySelector('.video-popup-close');
-const overlay = document.querySelector('.video-popup-overlay');
+class VideoPlayer {
+    constructor(popupSelector = '#videoPopup') {
+        this.videoPopup = document.querySelector(popupSelector);
+        this.closeBtn = this.videoPopup.querySelector('.video-popup-close');
+        this.overlay = this.videoPopup.querySelector('.video-popup-overlay');
+        this.videoTriggers = document.querySelectorAll('.video-trigger');
 
-let player;
-let playerReady = false;
+        this.player = null;
+        this.playerReady = false;
 
-// YouTube API ready callback
-function onYouTubeIframeAPIReady() {
-    playerReady = true;
-}
+        this.init();
+    }
 
-videoTriggers.forEach(trigger => {
-    trigger.addEventListener('click', () => {
-        const videoId = trigger.getAttribute('data-video-id');
-        videoPopup.classList.add('active');
+    init() {
+        // Set up global YouTube API callback
+        window.onYouTubeIframeAPIReady = () => {
+            this.playerReady = true;
+        };
 
-        // Wait for API to be ready, then create player
-        if (playerReady) {
-            createPlayer(videoId);
+        // Add click handlers to all video triggers
+        this.videoTriggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const videoId = trigger.getAttribute('data-video-id');
+                this.openVideo(videoId);
+            });
+        });
+
+        // Close handlers
+        this.closeBtn.addEventListener('click', () => this.closePopup());
+        this.overlay.addEventListener('click', () => this.closePopup());
+
+        // ESC key handler
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.videoPopup.classList.contains('active')) {
+                this.closePopup();
+            }
+        });
+    }
+
+    openVideo(videoId) {
+        this.videoPopup.classList.add('active');
+
+        if (this.playerReady) {
+            this.createPlayer(videoId);
         } else {
-            // Wait and try again
-            setTimeout(() => createPlayer(videoId), 100);
+            // Wait and retry
+            setTimeout(() => this.createPlayer(videoId), 100);
         }
-    });
-});
-
-function createPlayer(videoId) {
-    // Destroy existing player if it exists
-    if (player) {
-        player.destroy();
     }
 
-    // Create new player
-    player = new YT.Player('player', {
-        height: '100%',
-        width: '100%',
-        videoId: videoId,
-        playerVars: {
-            'autoplay': 1,
-            'controls': 1,
-            'modestbranding': 1,
-            'rel': 0,
-        },
-        events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange,
+    createPlayer(videoId) {
+        // Destroy existing player if it exists
+        if (this.player) {
+            this.player.destroy();
         }
-    });
-}
 
-function onPlayerReady(event) {
-    event.target.playVideo();
-}
+        // Create new player
+        this.player = new YT.Player('player', {
+            height: '100%',
+            width: '100%',
+            videoId: videoId,
+            playerVars: {
+                'autoplay': 1,
+                'controls': 1,
+                'modestbranding': 1,
+                'rel': 0,
+            },
+            events: {
+                'onReady': (event) => this.onPlayerReady(event),
+                'onStateChange': (event) => this.onPlayerStateChange(event),
+            }
+        });
+    }
 
-function onPlayerStateChange(event) {
-    const availableQualities = event.target.getAvailableQualityLevels();
-    if (availableQualities.includes('hd1080')) {
-        event.target.setPlaybackQuality('hd1080');
+    onPlayerReady(event) {
+        event.target.playVideo();
+    }
+
+    onPlayerStateChange(event) {
+        const availableQualities = event.target.getAvailableQualityLevels();
+        if (availableQualities.includes('hd1080')) {
+            event.target.setPlaybackQuality('hd1080');
+        }
+    }
+
+    closePopup() {
+        this.videoPopup.classList.remove('active');
+
+        // Stop and destroy player
+        if (this.player) {
+            this.player.stopVideo();
+            this.player.destroy();
+            this.player = null;
+        }
+    }
+
+    destroy() {
+        this.closePopup();
     }
 }
-
-function closePopup() {
-    videoPopup.classList.remove('active');
-
-    // Stop and destroy player
-    if (player) {
-        player.stopVideo();
-        player.destroy();
-        player = null;
-    }
-}
-
-closeBtn.addEventListener('click', closePopup);
-overlay.addEventListener('click', closePopup);
-
-// Close on ESC key
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && videoPopup.classList.contains('active')) {
-        closePopup();
-    }
-});
