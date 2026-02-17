@@ -1,5 +1,3 @@
-console.log('👋 Built by Justin Bull');
-
 const slider = new SnapTouch('slider');
 slider.create();
 slider.setActiveIndex(3);

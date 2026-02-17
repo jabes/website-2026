@@ -127,8 +127,6 @@ class ParticleSystem {
 /* scripts/src/comp-002-photo-slider.js                                             */
 /* -------------------------------------------------------------------------------- */
 
-console.log('👋 Built by Justin Bull');
-
 const slider = new SnapTouch('slider');
 slider.create();
 slider.setActiveIndex(3);
@@ -252,6 +250,8 @@ document.addEventListener('keydown', (e) => {
 /* -------------------------------------------------------------------------------- */
 /* scripts/src/main.js                                                              */
 /* -------------------------------------------------------------------------------- */
+
+console.log('👋 Built by Justin Bull');
 
 AOS.init();
 

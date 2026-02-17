@@ -1,3 +1,5 @@
+console.log('👋 Built by Justin Bull');
+
 AOS.init();
 
 if (window.innerWidth > 1024) {
