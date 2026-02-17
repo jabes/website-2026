@@ -22,6 +22,7 @@ STYLES=(
   styles/src/section-04-photo.css
   styles/src/section-05-video.css
   styles/src/section-06-footer.css
+  styles/lib/aos-2.3.4.min.css
 )
 
 mkdir -p styles/dist
@@ -42,6 +43,8 @@ done
 csso styles/dist/combined.css -o styles/dist/combined.min.css
 
 SCRIPTS=(
+  scripts/lib/aos-2.3.4.min.js
+  scripts/lib/snap-touch-1.0.6.min.js
   scripts/src/comp-001-particles.js
   scripts/src/comp-002-photo-slider.js
   scripts/src/comp-003-video-player.js
