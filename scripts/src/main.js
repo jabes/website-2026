@@ -18,8 +18,8 @@ window.addEventListener('load', () => {
     const loadSliderImages = () => {
         const isHiDPI = window.devicePixelRatio > 1;
         document.querySelectorAll('#slider img').forEach(img => {
-            img.src = isHiDPI ? img.dataset.src2x : img.dataset.src;
-            img.removeAttribute('data-src');
+            img.src = isHiDPI ? img.dataset['src-2x'] : img.dataset['src-1x'];
+            img.removeAttribute('data-src-1x');
             img.removeAttribute('data-src-2x');
         });
     };
