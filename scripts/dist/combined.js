@@ -293,11 +293,8 @@ if (window.innerWidth > 1024) {
 window.addEventListener('load', () => {
     const loadSliderImages = () => {
         const isHiDPI = window.devicePixelRatio > 1;
-
-        document.querySelectorAll('#slider img[data-src]').forEach(img => {
-            img.src = isHiDPI && img.dataset.src2x
-                ? img.dataset.src2x
-                : img.dataset.src;
+        document.querySelectorAll('#slider img').forEach(img => {
+            img.src = isHiDPI ? img.dataset.src2x : img.dataset.src;
             img.removeAttribute('data-src');
             img.removeAttribute('data-src-2x');
         });
@@ -310,12 +307,13 @@ window.addEventListener('load', () => {
     }
 });
 
+window.onYouTubeIframeAPIReady = () => {
+    new VideoPlayer();
+};
+
 if (!window.YT) {
     const script = document.createElement('script');
     script.src = 'https://www.youtube.com/iframe_api';
-    script.addEventListener('load', () => {
-        new VideoPlayer();
-    });
     document.head.appendChild(script);
 }
 
