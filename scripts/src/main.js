@@ -16,9 +16,14 @@ if (window.innerWidth > 1024) {
 
 window.addEventListener('load', () => {
     const loadSliderImages = () => {
+        const isHiDPI = window.devicePixelRatio > 1;
+
         document.querySelectorAll('#slider img[data-src]').forEach(img => {
-            img.src = img.dataset.src;
+            img.src = isHiDPI && img.dataset.src2x
+                ? img.dataset.src2x
+                : img.dataset.src;
             img.removeAttribute('data-src');
+            img.removeAttribute('data-src-2x');
         });
     };
 

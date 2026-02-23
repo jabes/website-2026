@@ -179,23 +179,20 @@ magick "assets/src/portrait.jpg" -strip -quality 80 -resize 400x400^ -gravity ce
 
 echo "Compressing banners..."
 for FILE in "${BANNERS[@]}"; do
-  EXT="${FILE##*.}"
-  WEBP="${FILE%.$EXT}.webp"
-  magick "assets/src/${FILE}" -strip -quality 80 -resize 390x152^ -gravity center -extent 390x152 "assets/dist/${WEBP}"
+  magick "assets/src/${FILE}" -strip -quality 80 -resize 390x152^ -gravity center -extent 390x152 "assets/dist/${FILE%.*}.webp"
+  magick "assets/src/${FILE}" -strip -quality 80 -resize 780x304^ -gravity center -extent 780x304 "assets/dist/${FILE%.*}@2x.webp"
 done
 
 echo "Compressing videos..."
 for FILE in "${VIDEOS[@]}"; do
-  EXT="${FILE##*.}"
-  WEBP="${FILE%.$EXT}.webp"
-  magick "assets/src/${FILE}" -strip -quality 80 -resize 390x219^ -gravity center -extent 390x219 "assets/dist/${WEBP}"
+  magick "assets/src/${FILE}" -strip -quality 80 -resize 390x219^ -gravity center -extent 390x219 "assets/dist/${FILE%.*}.webp"
+  magick "assets/src/${FILE}" -strip -quality 80 -resize 780x438^ -gravity center -extent 780x438 "assets/dist/${FILE%.*}@2x.webp"
 done
 
 echo "Compressing photos..."
 for FILE in "${PHOTOS[@]}"; do
-  EXT="${FILE##*.}"
-  WEBP="${FILE%.$EXT}.webp"
-  magick "photos/src/${FILE}" -strip -quality 80 -resize 280x280^ -gravity center -extent 280x280 "photos/dist/${WEBP}"
+  magick "photos/src/${FILE}" -strip -quality 80 -resize 280x280^ -gravity center -extent 280x280 "photos/dist/${FILE%.*}.webp"
+  magick "photos/src/${FILE}" -strip -quality 80 -resize 560x560^ -gravity center -extent 560x560 "photos/dist/${FILE%.*}@2x.webp"
 done
 
 # --------------------------------------------------------------------------------
