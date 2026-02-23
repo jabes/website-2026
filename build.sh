@@ -99,6 +99,104 @@ echo "Minifying styles..."
 purgecss --css styles/dist/combined.css --content index.html scripts/dist/combined.js --output styles/dist/
 csso styles/dist/combined.css -o styles/dist/combined.min.css
 
+
+# --------------------------------------------------------------------------------
+# IMAGES
+# --------------------------------------------------------------------------------
+
+BANNERS=(
+  banner-pinup.png
+  banner-pokedex.png
+  banner-snap.png
+  banner-terrace-editor.png
+  banner-terrace.png
+  banner-tofu.webp
+)
+
+VIDEOS=(
+  video-black-tusk-hike.jpg
+  video-bowen-island.webp
+  video-sun-peaks.webp
+  video-sunshine-coast.webp
+  video-twin-islands.webp
+  video-van-to-mtl.jpg
+)
+
+PHOTOS=(
+  photo-001.jpg
+  photo-002.jpg
+  photo-003.jpg
+  photo-004.jpg
+  photo-005.jpg
+  photo-006.jpg
+  photo-007.jpg
+  photo-008.jpg
+  photo-009.jpg
+  photo-010.jpg
+  photo-011.jpg
+  photo-012.jpg
+  photo-013.jpg
+  photo-014.jpg
+  photo-015.jpg
+  photo-016.jpg
+  photo-017.jpg
+  photo-018.jpg
+  photo-019.jpg
+  photo-020.jpg
+  photo-021.jpg
+  photo-022.jpg
+  photo-023.jpg
+  photo-024.jpg
+  photo-025.jpg
+  photo-026.jpg
+  photo-027.jpg
+  photo-028.jpg
+  photo-029.jpg
+  photo-030.jpg
+  photo-031.jpg
+  photo-032.jpg
+  photo-033.jpg
+  photo-034.jpg
+  photo-035.jpg
+  photo-036.jpg
+  photo-037.jpg
+  photo-038.jpg
+  photo-039.jpg
+  photo-040.jpg
+  photo-041.jpg
+  photo-042.jpg
+  photo-043.jpg
+)
+
+rm -rf assets/dist
+rm -rf photos/dist
+mkdir -p assets/dist
+mkdir -p photos/dist
+
+echo "Compressing portrait..."
+magick "assets/src/portrait.jpg" -strip -quality 80 -resize 200x200^ -gravity center -extent 200x200 "assets/dist/portrait.webp"
+
+echo "Compressing banners..."
+for FILE in "${BANNERS[@]}"; do
+  EXT="${FILE##*.}"
+  WEBP="${FILE%.$EXT}.webp"
+  magick "assets/src/${FILE}" -strip -quality 80 -resize 390x152^ -gravity center -extent 390x152 "assets/dist/${WEBP}"
+done
+
+echo "Compressing videos..."
+for FILE in "${VIDEOS[@]}"; do
+  EXT="${FILE##*.}"
+  WEBP="${FILE%.$EXT}.webp"
+  magick "assets/src/${FILE}" -strip -quality 80 -resize 390x219^ -gravity center -extent 390x219 "assets/dist/${WEBP}"
+done
+
+echo "Compressing photos..."
+for FILE in "${PHOTOS[@]}"; do
+  EXT="${FILE##*.}"
+  WEBP="${FILE%.$EXT}.webp"
+  magick "photos/src/${FILE}" -strip -quality 80 -resize 280x280^ -gravity center -extent 280x280 "photos/dist/${WEBP}"
+done
+
 # --------------------------------------------------------------------------------
 
 echo "✓ Build complete"
