@@ -3,6 +3,8 @@ class ParticleSystem {
         this.particleCount = 25000;
         this.particleVelocities = [];
         this.canvas = canvas;
+        this.bodyHeight = document.body.offsetHeight;
+        this.onResizeBound = () => this.onResize();
         this.initScene();
         this.initCamera();
         this.initRenderer();
@@ -67,13 +69,17 @@ class ParticleSystem {
     }
 
     addEventListeners() {
-        window.addEventListener('resize', () => this.onResize());
+        window.addEventListener('resize', this.onResizeBound);
+        window.addEventListener('load', () => {
+            this.bodyHeight = document.body.offsetHeight;
+        });
     }
 
     onResize() {
         this.camera.aspect = window.innerWidth / window.innerHeight;
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.bodyHeight = document.body.offsetHeight;
     }
 
     updateParticles() {
@@ -102,7 +108,7 @@ class ParticleSystem {
 
     updateCamera() {
         this.camera.position.x = 0;
-        this.camera.position.y = window.scrollY / (document.body.offsetHeight - window.innerHeight) * 5;
+        this.camera.position.y = window.scrollY / (this.bodyHeight - window.innerHeight) * 5;
         this.camera.lookAt(this.scene.position);
     }
 
@@ -115,7 +121,7 @@ class ParticleSystem {
     }
 
     destroy() {
-        window.removeEventListener('resize', this.onResize);
+        window.removeEventListener('resize', this.onResizeBound);
         this.renderer.domElement.remove();
         this.particlesGeometry.dispose();
         this.particles.material.dispose();
