@@ -138,8 +138,11 @@ if (window.innerWidth > 1024) {
     const script = document.createElement('script');
     script.src = window.location.origin + '/scripts/lib/three-r128.min.js';
     script.addEventListener('load', () => {
-        const canvas = document.getElementById('particleCanvas');
-        new ParticleSystem(canvas);
+        // Let the browser finish critical rendering work first before spinning up the animation loop
+        requestIdleCallback(() => {
+            const canvas = document.getElementById('particleCanvas');
+            new ParticleSystem(canvas);
+        });
     });
 
     document.head.appendChild(script);

@@ -142,8 +142,10 @@ if (window.innerWidth > 1024) {
     const script = document.createElement('script');
     script.src = window.location.origin + '/scripts/lib/three-r128.min.js';
     script.addEventListener('load', () => {
-        const canvas = document.getElementById('particleCanvas');
-        new ParticleSystem(canvas);
+        requestIdleCallback(() => {
+            const canvas = document.getElementById('particleCanvas');
+            new ParticleSystem(canvas);
+        });
     });
 
     document.head.appendChild(script);
@@ -288,6 +290,14 @@ class VideoPlayer {
 
     onPlayerStateChange(event) {
         console.log('playerStateChange', event);
+        const availableQualities = event.target.getAvailableQualityLevels();
+        const currentQuality = event.target.getPlaybackQuality();
+        const desiredQuality = 'hd1080';
+        console.log('availableQualities', currentQuality);
+        console.log('currentQuality', currentQuality);
+        if (availableQualities.includes(desiredQuality) && currentQuality !== desiredQuality) {
+            event.target.setPlaybackQuality(desiredQuality);
+        }
     }
 
     closePopup() {

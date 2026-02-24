@@ -72,6 +72,14 @@ class VideoPlayer {
 
     onPlayerStateChange(event) {
         console.log('playerStateChange', event);
+        const availableQualities = event.target.getAvailableQualityLevels();
+        const currentQuality = event.target.getPlaybackQuality();
+        const desiredQuality = 'hd1080';
+        console.log('availableQualities', currentQuality);
+        console.log('currentQuality', currentQuality);
+        if (availableQualities.includes(desiredQuality) && currentQuality !== desiredQuality) {
+            event.target.setPlaybackQuality(desiredQuality);
+        }
     }
 
     closePopup() {
