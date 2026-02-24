@@ -1,0 +1,10 @@
+Build completed: Mon Feb 23 08:03:37 PM EST 2026
+
+Tool versions:
+  node:          v22.22.0
+  terser:        5.46.0
+  html-minifier: 4.0.0
+  csso:          5.0.5
+  purgecss:      8.0.0
+  magick:        7.1.2-13
+  cwebp:         1.6.0

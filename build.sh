@@ -37,11 +37,10 @@ html-minifier \
 # --------------------------------------------------------------------------------
 
 SCRIPTS=(
-  scripts/lib/aos-2.3.4.min.js
-  scripts/lib/snap-touch-1.0.6.min.js
   scripts/src/comp-001-particles.js
   scripts/src/comp-002-photo-slider.js
   scripts/src/comp-003-video-player.js
+  scripts/src/comp-004-aos.js
   scripts/src/main.js
 )
 
@@ -76,7 +75,6 @@ STYLES=(
   styles/src/section-04-photo.css
   styles/src/section-05-video.css
   styles/src/section-06-footer.css
-  styles/lib/aos-2.3.4.min.css
 )
 
 mkdir -p styles/dist
@@ -197,4 +195,15 @@ done
 
 # --------------------------------------------------------------------------------
 
-echo "✓ Build complete"
+rm -f BUILD.txt
+touch BUILD.txt
+echo "Build completed: $(date)"                                                 >> BUILD.txt
+echo ""                                                                         >> BUILD.txt
+echo "Tool versions:"                                                           >> BUILD.txt
+echo "  node:          $(node --version)"                                       >> BUILD.txt
+echo "  terser:        $(terser --version | awk '{print $2}')"                  >> BUILD.txt
+echo "  html-minifier: $(html-minifier --version)"                              >> BUILD.txt
+echo "  csso:          $(csso --version)"                                       >> BUILD.txt
+echo "  purgecss:      $(purgecss --version)"                                   >> BUILD.txt
+echo "  magick:        $(magick --version | head -n1 | awk '{print $3}')"       >> BUILD.txt
+echo "  cwebp:         $(cwebp -version | head -n1)"                            >> BUILD.txt

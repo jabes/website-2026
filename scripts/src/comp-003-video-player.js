@@ -39,6 +39,7 @@ class VideoPlayer {
 
     openVideo(videoId) {
         this.videoPopup.classList.add('active');
+        document.body.style.overflow = 'hidden';
 
         if (this.playerReady) {
             this.createPlayer(videoId);
@@ -85,6 +86,7 @@ class VideoPlayer {
 
     closePopup() {
         this.videoPopup.classList.remove('active');
+        document.body.style.overflow = '';
 
         // Stop and destroy player
         if (this.player) {
@@ -97,4 +99,14 @@ class VideoPlayer {
     destroy() {
         this.closePopup();
     }
+}
+
+window.onYouTubeIframeAPIReady = () => {
+    new VideoPlayer();
+};
+
+if (!window.YT) {
+    const script = document.createElement('script');
+    script.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(script);
 }
