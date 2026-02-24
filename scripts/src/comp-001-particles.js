@@ -4,6 +4,7 @@ class ParticleSystem {
         this.particleVelocities = [];
         this.canvas = canvas;
         this.bodyHeight = document.body.offsetHeight;
+        this.animationId = null;
         this.onResizeBound = () => this.onResize();
         this.initScene();
         this.initCamera();
@@ -107,14 +108,16 @@ class ParticleSystem {
     }
 
     updateCamera() {
+        const scrollRange = this.bodyHeight - window.innerHeight;
         this.camera.position.x = 0;
-        this.camera.position.y = window.scrollY / (this.bodyHeight - window.innerHeight) * 5;
+        this.camera.position.y = scrollRange > 0
+            ? (window.scrollY / scrollRange) * 5
+            : 0;
         this.camera.lookAt(this.scene.position);
     }
 
     animate() {
-        requestAnimationFrame(() => this.animate());
-
+        this.animationId = requestAnimationFrame(() => this.animate());
         this.updateParticles();
         this.updateCamera();
         this.renderer.render(this.scene, this.camera);
@@ -122,7 +125,9 @@ class ParticleSystem {
 
     destroy() {
         window.removeEventListener('resize', this.onResizeBound);
+        cancelAnimationFrame(this.animationId);
         this.renderer.domElement.remove();
+        this.renderer.dispose();
         this.particlesGeometry.dispose();
         this.particles.material.dispose();
     }

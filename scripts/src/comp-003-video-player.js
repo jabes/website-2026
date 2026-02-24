@@ -1,22 +1,19 @@
 class VideoPlayer {
     constructor(popupSelector = '#videoPopup') {
         this.videoPopup = document.querySelector(popupSelector);
+        if (!this.videoPopup) {
+            return;
+        }
+
         this.closeBtn = this.videoPopup.querySelector('.video-popup-close');
         this.overlay = this.videoPopup.querySelector('.video-popup-overlay');
         this.videoTriggers = document.querySelectorAll('.video-trigger');
-
         this.player = null;
-        this.playerReady = false;
 
         this.init();
     }
 
     init() {
-        // Set up global YouTube API callback
-        window.onYouTubeIframeAPIReady = () => {
-            this.playerReady = true;
-        };
-
         // Add click handlers to all video triggers
         this.videoTriggers.forEach(trigger => {
             trigger.addEventListener('click', () => {
@@ -40,13 +37,7 @@ class VideoPlayer {
     openVideo(videoId) {
         this.videoPopup.classList.add('active');
         document.body.style.overflow = 'hidden';
-
-        if (this.playerReady) {
-            this.createPlayer(videoId);
-        } else {
-            // Wait and retry
-            setTimeout(() => this.createPlayer(videoId), 100);
-        }
+        this.createPlayer(videoId);
     }
 
     createPlayer(videoId) {
@@ -75,13 +66,12 @@ class VideoPlayer {
 
     onPlayerReady(event) {
         event.target.playVideo();
+        event.target.setPlaybackQuality('hd1080');
+        console.log('playerReady', event);
     }
 
     onPlayerStateChange(event) {
-        const availableQualities = event.target.getAvailableQualityLevels();
-        if (availableQualities.includes('hd1080')) {
-            event.target.setPlaybackQuality('hd1080');
-        }
+        console.log('playerStateChange', event);
     }
 
     closePopup() {

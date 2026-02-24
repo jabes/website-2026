@@ -8,6 +8,7 @@ class ParticleSystem {
         this.particleVelocities = [];
         this.canvas = canvas;
         this.bodyHeight = document.body.offsetHeight;
+        this.animationId = null;
         this.onResizeBound = () => this.onResize();
         this.initScene();
         this.initCamera();
@@ -111,14 +112,16 @@ class ParticleSystem {
     }
 
     updateCamera() {
+        const scrollRange = this.bodyHeight - window.innerHeight;
         this.camera.position.x = 0;
-        this.camera.position.y = window.scrollY / (this.bodyHeight - window.innerHeight) * 5;
+        this.camera.position.y = scrollRange > 0
+            ? (window.scrollY / scrollRange) * 5
+            : 0;
         this.camera.lookAt(this.scene.position);
     }
 
     animate() {
-        requestAnimationFrame(() => this.animate());
-
+        this.animationId = requestAnimationFrame(() => this.animate());
         this.updateParticles();
         this.updateCamera();
         this.renderer.render(this.scene, this.camera);
@@ -126,7 +129,9 @@ class ParticleSystem {
 
     destroy() {
         window.removeEventListener('resize', this.onResizeBound);
+        cancelAnimationFrame(this.animationId);
         this.renderer.domElement.remove();
+        this.renderer.dispose();
         this.particlesGeometry.dispose();
         this.particles.material.dispose();
     }
@@ -212,22 +217,19 @@ document.addEventListener('DOMContentLoaded', () => {
 class VideoPlayer {
     constructor(popupSelector = '#videoPopup') {
         this.videoPopup = document.querySelector(popupSelector);
+        if (!this.videoPopup) {
+            return;
+        }
+
         this.closeBtn = this.videoPopup.querySelector('.video-popup-close');
         this.overlay = this.videoPopup.querySelector('.video-popup-overlay');
         this.videoTriggers = document.querySelectorAll('.video-trigger');
-
         this.player = null;
-        this.playerReady = false;
 
         this.init();
     }
 
     init() {
-        // Set up global YouTube API callback
-        window.onYouTubeIframeAPIReady = () => {
-            this.playerReady = true;
-        };
-
         // Add click handlers to all video triggers
         this.videoTriggers.forEach(trigger => {
             trigger.addEventListener('click', () => {
@@ -251,13 +253,7 @@ class VideoPlayer {
     openVideo(videoId) {
         this.videoPopup.classList.add('active');
         document.body.style.overflow = 'hidden';
-
-        if (this.playerReady) {
-            this.createPlayer(videoId);
-        } else {
-            // Wait and retry
-            setTimeout(() => this.createPlayer(videoId), 100);
-        }
+        this.createPlayer(videoId);
     }
 
     createPlayer(videoId) {
@@ -286,13 +282,12 @@ class VideoPlayer {
 
     onPlayerReady(event) {
         event.target.playVideo();
+        event.target.setPlaybackQuality('hd1080');
+        console.log('playerReady', event);
     }
 
     onPlayerStateChange(event) {
-        const availableQualities = event.target.getAvailableQualityLevels();
-        if (availableQualities.includes('hd1080')) {
-            event.target.setPlaybackQuality('hd1080');
-        }
+        console.log('playerStateChange', event);
     }
 
     closePopup() {
