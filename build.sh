@@ -5,8 +5,13 @@ set -e  # Exit on any error
 source "/usr/share/nvm/init-nvm.sh"
 
 nvm use 22
+
+echo "Updating npm packages..."
+npm update -g --silent
+
+# Install if not found
 command -v html-minifier >/dev/null 2>&1 || npm install -g html-minifier
-command -v csso-cli >/dev/null 2>&1 || npm install -g csso-cli
+command -v csso >/dev/null 2>&1 || npm install -g csso-cli
 command -v purgecss >/dev/null 2>&1 || npm install -g purgecss
 command -v terser >/dev/null 2>&1 || npm install -g terser
 
@@ -96,7 +101,6 @@ done
 echo "Minifying styles..."
 purgecss --css styles/dist/combined.css --content index.html scripts/dist/combined.js --output styles/dist/
 csso styles/dist/combined.css -o styles/dist/combined.min.css
-
 
 # --------------------------------------------------------------------------------
 # IMAGES
@@ -194,6 +198,26 @@ for FILE in "${PHOTOS[@]}"; do
 done
 
 # --------------------------------------------------------------------------------
+# FONTS
+# --------------------------------------------------------------------------------
+
+FONTS=(
+  mononoki-Bold.otf
+  mononoki-BoldItalic.otf
+  mononoki-Italic.otf
+  mononoki-Regular.otf
+)
+
+rm -rf fonts/mononoki-1.6/dist
+mkdir -p fonts/mononoki-1.6/dist
+
+echo "Compressing fonts..."
+for FILE in "${FONTS[@]}"; do
+  woff2_compress "fonts/mononoki-1.6/src/${FILE}" &>/dev/null
+  mv -f "fonts/mononoki-1.6/src/${FILE%.*}.woff2" "fonts/mononoki-1.6/dist/${FILE%.*}.woff2"
+done
+
+# --------------------------------------------------------------------------------
 
 rm -f BUILD.txt
 touch BUILD.txt
@@ -207,3 +231,9 @@ echo "  csso:          $(csso --version)"                                       
 echo "  purgecss:      $(purgecss --version)"                                   >> BUILD.txt
 echo "  magick:        $(magick --version | head -n1 | awk '{print $3}')"       >> BUILD.txt
 echo "  cwebp:         $(cwebp -version | head -n1)"                            >> BUILD.txt
+echo "  woff2:         $(pacman -Q woff2 | awk '{print $2}')"                   >> BUILD.txt
+
+# --------------------------------------------------------------------------------
+
+echo "Starting http server..."
+python -m http.server 3000

@@ -1,4 +1,4 @@
-Build completed: Mon Feb 23 08:03:37 PM EST 2026
+Build completed: Mon Feb 23 08:50:15 PM EST 2026
 
 Tool versions:
   node:          v22.22.0
@@ -8,3 +8,4 @@ Tool versions:
   purgecss:      8.0.0
   magick:        7.1.2-13
   cwebp:         1.6.0
+  woff2:         1.0.2-6

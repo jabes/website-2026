@@ -33,12 +33,10 @@ div.section-projects-inner {
 
 .git-card .project-title {
     font-size: 1.25rem;
-    font-weight: bold;
 }
 
 .git-card .project-description {
     font-size: 1rem;
-    font-weight: normal;
 }
 
 .git-card a {

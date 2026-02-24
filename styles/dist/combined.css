@@ -2,6 +2,16 @@
 /* styles/src/main.css                                                              */
 /* -------------------------------------------------------------------------------- */
 
+@font-face {
+    font-family: mononokiRegular;
+    src: url(/fonts/mononoki-1.6/dist/mononoki-Regular.woff2);
+}
+
+@font-face {
+    font-family: mononokiBold;
+    src: url(/fonts/mononoki-1.6/dist/mononoki-Bold.woff2);
+}
+
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -11,7 +21,9 @@ body {
     padding: 0;
     overflow-x: hidden;
     overflow-y: scroll;
-    font-family: 'Courier New', monospace;
+    font-family: mononokiRegular, monospace;
+    font-weight: normal;
+    font-style: normal;
     scroll-behavior: smooth;
     background: black;
 }
@@ -23,14 +35,18 @@ img, video, canvas, svg {
 
 h1, h2, h3, p {
     overflow-wrap: break-word;
-}
-
-p {
-    text-wrap: pretty;
+    text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3 {
     text-wrap: balance;
+    font-family: mononokiBold, monospace;
+    font-weight: bold;
+}
+
+p {
+    text-wrap: pretty;
+    line-height: 1.2;
 }
 .col-4 { grid-column: span 4; }
 .col-6 { grid-column: span 6; }
@@ -186,13 +202,11 @@ div.section-hero-inner img.portrait {
 
 div.section-hero-inner .hero-title {
     font-size: 46px;
-    font-weight: bold;
     margin: 0;
 }
 
 div.section-hero-inner .hero-subtitle {
     font-size: 18px;
-    font-weight: bold;
     margin: 20px 0;
     line-height: 1.35;
 }
@@ -362,12 +376,10 @@ div.section-projects-inner {
 
 .git-card .project-title {
     font-size: 1.25rem;
-    font-weight: bold;
 }
 
 .git-card .project-description {
     font-size: 1rem;
-    font-weight: normal;
 }
 
 .git-card a {
