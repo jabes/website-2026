@@ -4,11 +4,13 @@
 
 @font-face {
     font-family: mononokiRegular;
+    font-display: swap;
     src: url(/fonts/mononoki-1.6/dist/mononoki-Regular.woff2);
 }
 
 @font-face {
     font-family: mononokiBold;
+    font-display: swap;
     src: url(/fonts/mononoki-1.6/dist/mononoki-Bold.woff2);
 }
 
