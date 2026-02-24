@@ -142,6 +142,7 @@ if (window.innerWidth > 1024) {
     const script = document.createElement('script');
     script.src = window.location.origin + '/scripts/lib/three-r128.min.js';
     script.addEventListener('load', () => {
+        // Let the browser finish critical rendering work first before spinning up the animation loop
         requestIdleCallback(() => {
             const canvas = document.getElementById('particleCanvas');
             new ParticleSystem(canvas);
@@ -160,12 +161,15 @@ let isInteracting = false;
 
 const handleInteractionStart = () => {
     isInteracting = true;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
     document.body.style.overflow = 'hidden';
 };
 
 const handleInteractionEnd = () => {
     if (isInteracting) {
         isInteracting = false;
+        document.body.style.paddingRight = '';
         document.body.style.overflow = '';
     }
 };

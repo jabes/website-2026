@@ -14,6 +14,7 @@ command -v html-minifier >/dev/null 2>&1 || npm install -g html-minifier
 command -v csso >/dev/null 2>&1 || npm install -g csso-cli
 command -v purgecss >/dev/null 2>&1 || npm install -g purgecss
 command -v terser >/dev/null 2>&1 || npm install -g terser
+command -v postcss >/dev/null 2>&1 || npm install -g postcss-cli autoprefixer
 
 # --------------------------------------------------------------------------------
 # FETCH LIBS
@@ -100,6 +101,7 @@ done
 
 echo "Minifying styles..."
 purgecss --css styles/dist/combined.css --content index.html scripts/dist/combined.js --output styles/dist/
+postcss styles/dist/combined.css --use autoprefixer -o styles/dist/combined.css
 csso styles/dist/combined.css -o styles/dist/combined.min.css
 
 # --------------------------------------------------------------------------------
@@ -231,6 +233,7 @@ echo "  terser:        $(terser --version | awk '{print $2}')"                  
 echo "  html-minifier: $(html-minifier --version)"                              >> BUILD.txt
 echo "  csso:          $(csso --version)"                                       >> BUILD.txt
 echo "  purgecss:      $(purgecss --version)"                                   >> BUILD.txt
+echo "  autoprefixer:  $(autoprefixer --version | awk '{print $2}')"            >> BUILD.txt
 echo "  magick:        $(magick --version | head -n1 | awk '{print $3}')"       >> BUILD.txt
 echo "  cwebp:         $(cwebp -version | head -n1)"                            >> BUILD.txt
 echo "  woff2:         $(pacman -Q woff2 | awk '{print $2}')"                   >> BUILD.txt
