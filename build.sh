@@ -178,6 +178,8 @@ mkdir -p photos/dist
 echo "Compressing portrait..."
 magick "assets/src/portrait.jpg" -strip -quality 80 -resize 200x200^ -gravity center -extent 200x200 "assets/dist/portrait.webp"
 magick "assets/src/portrait.jpg" -strip -quality 80 -resize 400x400^ -gravity center -extent 400x400 "assets/dist/portrait@2x.webp"
+magick "assets/src/portrait-alt.png" -strip -quality 80 -resize 200x200^ -gravity center -extent 200x200 "assets/dist/portrait-alt.webp"
+magick "assets/src/portrait-alt.png" -strip -quality 80 -resize 400x400^ -gravity center -extent 400x400 "assets/dist/portrait-alt@2x.webp"
 
 echo "Compressing banners..."
 for FILE in "${BANNERS[@]}"; do
